@@ -1,0 +1,21 @@
+﻿CREATE TABLE Spells (
+	SpellId INT PRIMARY KEY,
+	SpellName NVARCHAR(40) NOT NULL,
+	SpellLevel INT NOT NULL,
+	SpellSchool NVARCHAR(12) NOT NULL,
+	CastingTime NVARCHAR(12) NOT NULL,
+	SpellRange NVARCHAR(50) NOT NULL,
+	VComponents BIT NOT NULL,
+	SComponents BIT NOT NULL,
+	HasMComponents BIT NOT NULL,
+	MComponents NVARCHAR(150) NOT NULL,
+	Duration NVARCHAR(40) NOT NULL,
+	SpellText NVARCHAR(4000) NOT NULL,
+	SpellSource NVARCHAR(3) NOT NULL
+);
+
+
+CREATE TABLE UserSpells (
+	SpellId INT FOREIGN KEY REFERENCES Spells(SpellId),
+	UserId NVARCHAR(128) FOREIGN KEY REFERENCES ApplicationUsers(Id)
+);
