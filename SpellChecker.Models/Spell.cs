@@ -29,10 +29,29 @@ namespace SpellChecker.Models
         public bool VComponents { get; set; }
         public bool SComponents { get; set; }
         public bool HasMComponents { get; set; }
+        public bool HasExpensiveMComponents { get; set; }
         public string MComponents { get; set; }
         public string Duration { get; set; }
-        public string SpellText { get; set; }
+        public bool Concentration { get; set; }
+        public bool Ritual { get; set; }
+        public string SpellTextA { get; set; }
+        public string SpellTextB { get; set; }
+        public string SpellTextC { get; set; }
+        public string SpellTextD { get; set; }
+        public string SpellTextE { get; set; }
+        public string SpellTextF { get; set; }
+        public string SpellTextG { get; set; }
+        public string SpellTextH { get; set; }
+        public string SpellTextI { get; set; }
         public string SpellSource { get; set; }
+        public bool BrdSpell { get; set; }
+        public bool ClrSpell { get; set; }
+        public bool DrdSpell { get; set; }
+        public bool PalSpell { get; set; }
+        public bool RngSpell { get; set; }
+        public bool SorSpell { get; set; }
+        public bool WarSpell { get; set; }
+        public bool WizSpell { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSpell> UserSpells { get; set; }
