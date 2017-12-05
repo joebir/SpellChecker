@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20454f98b1c14af2afefeef479855121" Name="Diagram1">
+        <EntityTypeShape EntityType="SpellCheckerDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.ApplicationUser" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.IdentityRole" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.IdentityUserClaim" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.IdentityUserLogin" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.IdentityUserRole" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.Spell" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerDBModel.UserSpell" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK__UserSpell__UserI__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerDBModel.FK__UserSpell__Spell__4BAC3F29" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

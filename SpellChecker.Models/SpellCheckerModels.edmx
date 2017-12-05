@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SpellCheckerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="IdentityRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="IdentityUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="ApplicationUser_Id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="IdentityUserLogins">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar(max)" />
+          <Property Name="ProviderKey" Type="nvarchar(max)" />
+          <Property Name="ApplicationUser_Id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="IdentityUserRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="IdentityRole_Id" Type="nvarchar" MaxLength="128" />
+          <Property Name="ApplicationUser_Id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Spells">
+          <Key>
+            <PropertyRef Name="SpellId" />
+          </Key>
+          <Property Name="SpellId" Type="int" Nullable="false" />
+          <Property Name="SpellName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="SpellLevel" Type="int" Nullable="false" />
+          <Property Name="SpellSchool" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="CastingTime" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="SpellRange" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VComponents" Type="bit" Nullable="false" />
+          <Property Name="SComponents" Type="bit" Nullable="false" />
+          <Property Name="HasMComponents" Type="bit" Nullable="false" />
+          <Property Name="MComponents" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="SpellText" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="SpellSource" Type="nvarchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSpells">
+          <Key>
+            <PropertyRef Name="UserSpellId" />
+          </Key>
+          <Property Name="UserSpellId" Type="int" Nullable="false" />
+          <Property Name="SpellId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK__UserSpell__Spell__4BAC3F29">
+          <End Role="Spells" Type="Self.Spells" Multiplicity="0..1" />
+          <End Role="UserSpells" Type="Self.UserSpells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spells">
+              <PropertyRef Name="SpellId" />
+            </Principal>
+            <Dependent Role="UserSpells">
+              <PropertyRef Name="SpellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserSpell__UserI__4CA06362">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUsers" Multiplicity="0..1" />
+          <End Role="UserSpells" Type="Self.UserSpells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSpells">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUsers" Multiplicity="0..1" />
+          <End Role="IdentityUserClaims" Type="Self.IdentityUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserClaims">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUsers" Multiplicity="0..1" />
+          <End Role="IdentityUserLogins" Type="Self.IdentityUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserLogins">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUsers" Multiplicity="0..1" />
+          <End Role="IdentityUserRoles" Type="Self.IdentityUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserRoles">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id">
+          <End Role="IdentityRoles" Type="Self.IdentityRoles" Multiplicity="0..1" />
+          <End Role="IdentityUserRoles" Type="Self.IdentityUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserRoles">
+              <PropertyRef Name="IdentityRole_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SpellCheckerDBModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationUsers" EntityType="Self.ApplicationUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityRoles" EntityType="Self.IdentityRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityUserClaims" EntityType="Self.IdentityUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityUserLogins" EntityType="Self.IdentityUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityUserRoles" EntityType="Self.IdentityUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spells" EntityType="Self.Spells" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSpells" EntityType="Self.UserSpells" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__UserSpell__Spell__4BAC3F29" Association="Self.FK__UserSpell__Spell__4BAC3F29">
+            <End Role="Spells" EntitySet="Spells" />
+            <End Role="UserSpells" EntitySet="UserSpells" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserSpell__UserI__4CA06362" Association="Self.FK__UserSpell__UserI__4CA06362">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="UserSpells" EntitySet="UserSpells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserClaims" EntitySet="IdentityUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserLogins" EntitySet="IdentityUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserRoles" EntitySet="IdentityUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" Association="Self.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id">
+            <End Role="IdentityRoles" EntitySet="IdentityRoles" />
+            <End Role="IdentityUserRoles" EntitySet="IdentityUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SpellCheckerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserSpells" Relationship="Self.FK__UserSpell__UserI__4CA06362" FromRole="ApplicationUsers" ToRole="UserSpells" />
+          <NavigationProperty Name="IdentityUserClaims" Relationship="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserClaims" />
+          <NavigationProperty Name="IdentityUserLogins" Relationship="Self.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserLogins" />
+          <NavigationProperty Name="IdentityUserRoles" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserRoles" />
+        </EntityType>
+        <EntityType Name="IdentityRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IdentityUserRoles" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" FromRole="IdentityRoles" ToRole="IdentityUserRoles" />
+        </EntityType>
+        <EntityType Name="IdentityUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="IdentityUserClaims" ToRole="ApplicationUsers" />
+        </EntityType>
+        <EntityType Name="IdentityUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="IdentityUserLogins" ToRole="ApplicationUsers" />
+        </EntityType>
+        <EntityType Name="IdentityUserRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdentityRole_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationUser_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="IdentityUserRoles" ToRole="ApplicationUsers" />
+          <NavigationProperty Name="IdentityRole" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" FromRole="IdentityUserRoles" ToRole="IdentityRoles" />
+        </EntityType>
+        <EntityType Name="Spell">
+          <Key>
+            <PropertyRef Name="SpellId" />
+          </Key>
+          <Property Name="SpellId" Type="Int32" Nullable="false" />
+          <Property Name="SpellName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpellLevel" Type="Int32" Nullable="false" />
+          <Property Name="SpellSchool" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CastingTime" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpellRange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VComponents" Type="Boolean" Nullable="false" />
+          <Property Name="SComponents" Type="Boolean" Nullable="false" />
+          <Property Name="HasMComponents" Type="Boolean" Nullable="false" />
+          <Property Name="MComponents" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpellText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpellSource" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserSpells" Relationship="Self.FK__UserSpell__Spell__4BAC3F29" FromRole="Spells" ToRole="UserSpells" />
+        </EntityType>
+        <EntityType Name="UserSpell">
+          <Key>
+            <PropertyRef Name="UserSpellId" />
+          </Key>
+          <Property Name="UserSpellId" Type="Int32" Nullable="false" />
+          <Property Name="SpellId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK__UserSpell__UserI__4CA06362" FromRole="UserSpells" ToRole="ApplicationUsers" />
+          <NavigationProperty Name="Spell" Relationship="Self.FK__UserSpell__Spell__4BAC3F29" FromRole="UserSpells" ToRole="Spells" />
+        </EntityType>
+        <Association Name="FK__UserSpell__UserI__4CA06362">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUser" Multiplicity="0..1" />
+          <End Role="UserSpells" Type="Self.UserSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSpells">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUser" Multiplicity="0..1" />
+          <End Role="IdentityUserClaims" Type="Self.IdentityUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserClaims">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUser" Multiplicity="0..1" />
+          <End Role="IdentityUserLogins" Type="Self.IdentityUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserLogins">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id">
+          <End Role="ApplicationUsers" Type="Self.ApplicationUser" Multiplicity="0..1" />
+          <End Role="IdentityUserRoles" Type="Self.IdentityUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserRoles">
+              <PropertyRef Name="ApplicationUser_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id">
+          <End Role="IdentityRoles" Type="Self.IdentityRole" Multiplicity="0..1" />
+          <End Role="IdentityUserRoles" Type="Self.IdentityUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityUserRoles">
+              <PropertyRef Name="IdentityRole_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserSpell__Spell__4BAC3F29">
+          <End Role="Spells" Type="Self.Spell" Multiplicity="0..1" />
+          <End Role="UserSpells" Type="Self.UserSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spells">
+              <PropertyRef Name="SpellId" />
+            </Principal>
+            <Dependent Role="UserSpells">
+              <PropertyRef Name="SpellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SpellCheckerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="ApplicationUsers" EntityType="Self.ApplicationUser" />
+          <EntitySet Name="IdentityRoles" EntityType="Self.IdentityRole" />
+          <EntitySet Name="IdentityUserClaims" EntityType="Self.IdentityUserClaim" />
+          <EntitySet Name="IdentityUserLogins" EntityType="Self.IdentityUserLogin" />
+          <EntitySet Name="IdentityUserRoles" EntityType="Self.IdentityUserRole" />
+          <EntitySet Name="Spells" EntityType="Self.Spell" />
+          <EntitySet Name="UserSpells" EntityType="Self.UserSpell" />
+          <AssociationSet Name="FK__UserSpell__UserI__4CA06362" Association="Self.FK__UserSpell__UserI__4CA06362">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="UserSpells" EntitySet="UserSpells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserClaims" EntitySet="IdentityUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserLogins" EntitySet="IdentityUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id">
+            <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
+            <End Role="IdentityUserRoles" EntitySet="IdentityUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" Association="Self.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id">
+            <End Role="IdentityRoles" EntitySet="IdentityRoles" />
+            <End Role="IdentityUserRoles" EntitySet="IdentityUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserSpell__Spell__4BAC3F29" Association="Self.FK__UserSpell__Spell__4BAC3F29">
+            <End Role="Spells" EntitySet="Spells" />
+            <End Role="UserSpells" EntitySet="UserSpells" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SpellCheckerDBModelStoreContainer" CdmEntityContainer="SpellCheckerEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationUsers">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.ApplicationUser">
+              <MappingFragment StoreEntitySet="ApplicationUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityRoles">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.IdentityRole">
+              <MappingFragment StoreEntitySet="IdentityRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUserClaims">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.IdentityUserClaim">
+              <MappingFragment StoreEntitySet="IdentityUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ApplicationUser_Id" ColumnName="ApplicationUser_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUserLogins">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.IdentityUserLogin">
+              <MappingFragment StoreEntitySet="IdentityUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="ApplicationUser_Id" ColumnName="ApplicationUser_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUserRoles">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.IdentityUserRole">
+              <MappingFragment StoreEntitySet="IdentityUserRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IdentityRole_Id" ColumnName="IdentityRole_Id" />
+                <ScalarProperty Name="ApplicationUser_Id" ColumnName="ApplicationUser_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spells">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.Spell">
+              <MappingFragment StoreEntitySet="Spells">
+                <ScalarProperty Name="SpellId" ColumnName="SpellId" />
+                <ScalarProperty Name="SpellName" ColumnName="SpellName" />
+                <ScalarProperty Name="SpellLevel" ColumnName="SpellLevel" />
+                <ScalarProperty Name="SpellSchool" ColumnName="SpellSchool" />
+                <ScalarProperty Name="CastingTime" ColumnName="CastingTime" />
+                <ScalarProperty Name="SpellRange" ColumnName="SpellRange" />
+                <ScalarProperty Name="VComponents" ColumnName="VComponents" />
+                <ScalarProperty Name="SComponents" ColumnName="SComponents" />
+                <ScalarProperty Name="HasMComponents" ColumnName="HasMComponents" />
+                <ScalarProperty Name="MComponents" ColumnName="MComponents" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="SpellText" ColumnName="SpellText" />
+                <ScalarProperty Name="SpellSource" ColumnName="SpellSource" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSpells">
+            <EntityTypeMapping TypeName="SpellCheckerDBModel.UserSpell">
+              <MappingFragment StoreEntitySet="UserSpells">
+                <ScalarProperty Name="UserSpellId" ColumnName="UserSpellId" />
+                <ScalarProperty Name="SpellId" ColumnName="SpellId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

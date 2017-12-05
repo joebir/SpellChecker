@@ -45,6 +45,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,11 +55,72 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationUser.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityRole.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityUserClaim.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityUserLogin.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityUserRole.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spell.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpellCheckerModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpellCheckerModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpellCheckerModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpellCheckerModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpellCheckerModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="UserSpell.cs">
+      <DependentUpon>SpellCheckerModels.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="SpellCheckerModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SpellCheckerModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SpellCheckerModels.edmx.diagram">
+      <DependentUpon>SpellCheckerModels.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpellCheckerModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SpellCheckerModels.edmx</DependentUpon>
+      <LastGenOutput>SpellCheckerModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SpellCheckerModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SpellCheckerModels.edmx</DependentUpon>
+      <LastGenOutput>SpellCheckerModels.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

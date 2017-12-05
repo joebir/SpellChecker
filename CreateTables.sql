@@ -1,21 +1,41 @@
 ﻿CREATE TABLE Spells (
-	SpellId INT PRIMARY KEY,
+	SpellId INT IDENTITY(100,1) PRIMARY KEY,
 	SpellName NVARCHAR(40) NOT NULL,
 	SpellLevel INT NOT NULL,
-	SpellSchool NVARCHAR(12) NOT NULL,
-	CastingTime NVARCHAR(12) NOT NULL,
-	SpellRange NVARCHAR(50) NOT NULL,
+	SpellSchool NVARCHAR(13) NOT NULL,
+	CastingTime NVARCHAR(100) NOT NULL,
+	SpellRange NVARCHAR(100) NOT NULL,
 	VComponents BIT NOT NULL,
 	SComponents BIT NOT NULL,
 	HasMComponents BIT NOT NULL,
-	MComponents NVARCHAR(150) NOT NULL,
-	Duration NVARCHAR(40) NOT NULL,
-	SpellText NVARCHAR(4000) NOT NULL,
-	SpellSource NVARCHAR(3) NOT NULL
+	HasExpensiveMComponents BIT NOT NULL,
+	MComponents NVARCHAR(200),
+	Duration NVARCHAR(100) NOT NULL,
+	Concentration BIT NOT NULL,
+	Ritual BIT NOT NULL,
+	SpellTextA NVARCHAR(1000) NOT NULL,
+	SpellTextB NVARCHAR(1000),
+	SpellTextC NVARCHAR(1000),
+	SpellTextD NVARCHAR(1000),
+	SpellTextE NVARCHAR(1000),
+	SpellTextF NVARCHAR(1000),
+	SpellTextG NVARCHAR(1000),
+	SpellTextH NVARCHAR(1000),
+	SpellTextI NVARCHAR(1000),
+	SpellSource NVARCHAR(3) NOT NULL,
+	BrdSpell BIT NOT NULL,
+	ClrSpell BIT NOT NULL,
+	DrdSpell BIT NOT NULL,
+	PalSpell BIT NOT NULL,
+	RngSpell BIT NOT NULL,
+	SorSpell BIT NOT NULL,
+	WarSpell BIT NOT NULL,
+	WizSpell BIT NOT NULL
 );
 
 
 CREATE TABLE UserSpells (
+	UserSpellId INT IDENTITY(1,1) PRIMARY KEY,
 	SpellId INT FOREIGN KEY REFERENCES Spells(SpellId),
 	UserId NVARCHAR(128) FOREIGN KEY REFERENCES ApplicationUsers(Id)
 );
