@@ -54,10 +54,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpellbookService.cs" />
+    <Compile Include="SpellService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpellChecker.Contracts\SpellChecker.Contracts.csproj">
+      <Project>{843FC8B0-06FB-4DEB-A4EF-1A2290E4E6F4}</Project>
+      <Name>SpellChecker.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpellChecker.Data\SpellChecker.Data.csproj">
+      <Project>{CB142324-D58B-4BA9-AC4A-472D2A06DB55}</Project>
+      <Name>SpellChecker.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpellChecker.Models\SpellChecker.Models.csproj">
+      <Project>{12700AF8-2FCC-41B4-87FF-D84FBC503FE7}</Project>
+      <Name>SpellChecker.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

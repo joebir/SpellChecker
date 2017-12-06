@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SpellChecker.Contracts
 {
-    interface ISpellbook
+    public interface ISpellbook
     {
         IEnumerable<Spell> GetSpells();
-        bool AddEntry(SpellbookEntry entry);
+        bool AddEntry(Spell spell);
         bool DeleteEntry(int entryId);
     }
 }

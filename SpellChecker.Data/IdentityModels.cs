@@ -33,6 +33,7 @@ namespace SpellChecker.Data
         }
 
         public DbSet<SpellEntity> Spells { get; set; }
+        public DbSet<SpellbookEntity> Spellbooks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
