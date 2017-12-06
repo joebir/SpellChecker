@@ -12,13 +12,20 @@ namespace SpellChecker.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSpell
+    public partial class Spellbook
     {
-        public int UserSpellId { get; set; }
-        public Nullable<int> SpellId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Spellbook()
+        {
+            this.SpellbookEntries = new HashSet<SpellbookEntry>();
+        }
+    
+        public int SpellbookId { get; set; }
+        public string SpellbookName { get; set; }
         public string UserId { get; set; }
     
         public virtual ApplicationUser ApplicationUser { get; set; }
-        public virtual Spell Spell { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SpellbookEntry> SpellbookEntries { get; set; }
     }
 }

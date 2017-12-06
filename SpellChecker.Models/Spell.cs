@@ -17,7 +17,7 @@ namespace SpellChecker.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Spell()
         {
-            this.UserSpells = new HashSet<UserSpell>();
+            this.SpellbookEntries = new HashSet<SpellbookEntry>();
         }
     
         public int SpellId { get; set; }
@@ -54,6 +54,6 @@ namespace SpellChecker.Models
         public bool WizSpell { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserSpell> UserSpells { get; set; }
+        public virtual ICollection<SpellbookEntry> SpellbookEntries { get; set; }
     }
 }

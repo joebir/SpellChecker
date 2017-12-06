@@ -31,7 +31,8 @@ namespace SpellChecker.Models
         public virtual DbSet<IdentityUserClaim> IdentityUserClaims { get; set; }
         public virtual DbSet<IdentityUserLogin> IdentityUserLogins { get; set; }
         public virtual DbSet<IdentityUserRole> IdentityUserRoles { get; set; }
+        public virtual DbSet<SpellbookEntry> SpellbookEntries { get; set; }
+        public virtual DbSet<Spellbook> Spellbooks { get; set; }
         public virtual DbSet<Spell> Spells { get; set; }
-        public virtual DbSet<UserSpell> UserSpells { get; set; }
     }
 }

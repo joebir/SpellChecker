@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea23f90ab966479184f9db0468882ca2" Name="Diagram1">
-        <EntityTypeShape EntityType="SpellCheckerModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="90dbc9f456ae4047b5fd6c1f177ebf23" Name="Diagram1">
+        <EntityTypeShape EntityType="SpellCheckerModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.ApplicationUser" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpellCheckerModel.IdentityRole" Width="1.5" PointX="3.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpellCheckerModel.IdentityUserClaim" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpellCheckerModel.IdentityUserLogin" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerModel.IdentityRole" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerModel.IdentityUserClaim" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerModel.IdentityUserLogin" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.IdentityUserRole" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpellCheckerModel.Spell" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpellCheckerModel.UserSpell" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
-        <AssociationConnector Association="SpellCheckerModel.FK__UserSpell__UserI__59C55456" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SpellCheckerModel.SpellbookEntry" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerModel.Spellbook" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpellCheckerModel.Spell" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__UserI__69FBBC1F" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="SpellCheckerModel.FK__UserSpell__Spell__58D1301D" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__6CD828CA" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__6DCC4D03" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

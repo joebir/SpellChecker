@@ -34,8 +34,14 @@
 );
 
 
-CREATE TABLE UserSpells (
-	UserSpellId INT IDENTITY(1,1) PRIMARY KEY,
-	SpellId INT FOREIGN KEY REFERENCES Spells(SpellId),
+CREATE TABLE Spellbooks (
+	SpellbookId INT IDENTITY(1,1) PRIMARY KEY,
+	SpellbookName NVARCHAR(20),
 	UserId NVARCHAR(128) FOREIGN KEY REFERENCES ApplicationUsers(Id)
+);
+
+CREATE TABLE SpellbookEntries (
+	EntryId INT IDENTITY (1,1) PRIMARY KEY,
+	SpellbookId INT FOREIGN KEY REFERENCES Spellbooks(SpellbookId),
+	SpellId INT FOREIGN KEY REFERENCES Spells(SpellId)
 );

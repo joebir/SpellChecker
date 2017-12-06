@@ -17,7 +17,7 @@ namespace SpellChecker.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ApplicationUser()
         {
-            this.UserSpells = new HashSet<UserSpell>();
+            this.Spellbooks = new HashSet<Spellbook>();
             this.IdentityUserClaims = new HashSet<IdentityUserClaim>();
             this.IdentityUserLogins = new HashSet<IdentityUserLogin>();
             this.IdentityUserRoles = new HashSet<IdentityUserRole>();
@@ -37,7 +37,7 @@ namespace SpellChecker.Models
         public string UserName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserSpell> UserSpells { get; set; }
+        public virtual ICollection<Spellbook> Spellbooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IdentityUserClaim> IdentityUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

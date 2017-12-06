@@ -1,3 +1,5 @@
-﻿DROP TABLE UserSpells;
+﻿DROP TABLE SpellbookEntries;
+
+DROP TABLE Spellbooks;
 
 DROP TABLE Spells;

@@ -67,6 +67,22 @@
           <Property Name="IdentityRole_Id" Type="nvarchar" MaxLength="128" />
           <Property Name="ApplicationUser_Id" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="SpellbookEntries">
+          <Key>
+            <PropertyRef Name="EntryId" />
+          </Key>
+          <Property Name="EntryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpellbookId" Type="int" />
+          <Property Name="SpellId" Type="int" />
+        </EntityType>
+        <EntityType Name="Spellbooks">
+          <Key>
+            <PropertyRef Name="SpellbookId" />
+          </Key>
+          <Property Name="SpellbookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpellbookName" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="Spells">
           <Key>
             <PropertyRef Name="SpellId" />
@@ -104,34 +120,38 @@
           <Property Name="WarSpell" Type="bit" Nullable="false" />
           <Property Name="WizSpell" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserSpells">
-          <Key>
-            <PropertyRef Name="UserSpellId" />
-          </Key>
-          <Property Name="UserSpellId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SpellId" Type="int" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
-        </EntityType>
-        <Association Name="FK__UserSpell__Spell__58D1301D">
+        <Association Name="FK__Spellbook__Spell__6CD828CA">
+          <End Role="Spellbooks" Type="Self.Spellbooks" Multiplicity="0..1" />
+          <End Role="SpellbookEntries" Type="Self.SpellbookEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spellbooks">
+              <PropertyRef Name="SpellbookId" />
+            </Principal>
+            <Dependent Role="SpellbookEntries">
+              <PropertyRef Name="SpellbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spellbook__Spell__6DCC4D03">
           <End Role="Spells" Type="Self.Spells" Multiplicity="0..1" />
-          <End Role="UserSpells" Type="Self.UserSpells" Multiplicity="*" />
+          <End Role="SpellbookEntries" Type="Self.SpellbookEntries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Spells">
               <PropertyRef Name="SpellId" />
             </Principal>
-            <Dependent Role="UserSpells">
+            <Dependent Role="SpellbookEntries">
               <PropertyRef Name="SpellId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserSpell__UserI__59C55456">
+        <Association Name="FK__Spellbook__UserI__69FBBC1F">
           <End Role="ApplicationUsers" Type="Self.ApplicationUsers" Multiplicity="0..1" />
-          <End Role="UserSpells" Type="Self.UserSpells" Multiplicity="*" />
+          <End Role="Spellbooks" Type="Self.Spellbooks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ApplicationUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserSpells">
+            <Dependent Role="Spellbooks">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -191,15 +211,20 @@
           <EntitySet Name="IdentityUserClaims" EntityType="Self.IdentityUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IdentityUserLogins" EntityType="Self.IdentityUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IdentityUserRoles" EntityType="Self.IdentityUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpellbookEntries" EntityType="Self.SpellbookEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spellbooks" EntityType="Self.Spellbooks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Spells" EntityType="Self.Spells" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserSpells" EntityType="Self.UserSpells" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__UserSpell__Spell__58D1301D" Association="Self.FK__UserSpell__Spell__58D1301D">
-            <End Role="Spells" EntitySet="Spells" />
-            <End Role="UserSpells" EntitySet="UserSpells" />
+          <AssociationSet Name="FK__Spellbook__Spell__6CD828CA" Association="Self.FK__Spellbook__Spell__6CD828CA">
+            <End Role="Spellbooks" EntitySet="Spellbooks" />
+            <End Role="SpellbookEntries" EntitySet="SpellbookEntries" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserSpell__UserI__59C55456" Association="Self.FK__UserSpell__UserI__59C55456">
+          <AssociationSet Name="FK__Spellbook__Spell__6DCC4D03" Association="Self.FK__Spellbook__Spell__6DCC4D03">
+            <End Role="Spells" EntitySet="Spells" />
+            <End Role="SpellbookEntries" EntitySet="SpellbookEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spellbook__UserI__69FBBC1F" Association="Self.FK__Spellbook__UserI__69FBBC1F">
             <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
-            <End Role="UserSpells" EntitySet="UserSpells" />
+            <End Role="Spellbooks" EntitySet="Spellbooks" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
             <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
@@ -249,7 +274,7 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserSpells" Relationship="Self.FK__UserSpell__UserI__59C55456" FromRole="ApplicationUsers" ToRole="UserSpells" />
+          <NavigationProperty Name="Spellbooks" Relationship="Self.FK__Spellbook__UserI__69FBBC1F" FromRole="ApplicationUsers" ToRole="Spellbooks" />
           <NavigationProperty Name="IdentityUserClaims" Relationship="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserClaims" />
           <NavigationProperty Name="IdentityUserLogins" Relationship="Self.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserLogins" />
           <NavigationProperty Name="IdentityUserRoles" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="ApplicationUsers" ToRole="IdentityUserRoles" />
@@ -294,6 +319,26 @@
           <NavigationProperty Name="ApplicationUser" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" FromRole="IdentityUserRoles" ToRole="ApplicationUsers" />
           <NavigationProperty Name="IdentityRole" Relationship="Self.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" FromRole="IdentityUserRoles" ToRole="IdentityRoles" />
         </EntityType>
+        <EntityType Name="SpellbookEntry">
+          <Key>
+            <PropertyRef Name="EntryId" />
+          </Key>
+          <Property Name="EntryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpellbookId" Type="Int32" />
+          <Property Name="SpellId" Type="Int32" />
+          <NavigationProperty Name="Spellbook" Relationship="Self.FK__Spellbook__Spell__6CD828CA" FromRole="SpellbookEntries" ToRole="Spellbooks" />
+          <NavigationProperty Name="Spell" Relationship="Self.FK__Spellbook__Spell__6DCC4D03" FromRole="SpellbookEntries" ToRole="Spells" />
+        </EntityType>
+        <EntityType Name="Spellbook">
+          <Key>
+            <PropertyRef Name="SpellbookId" />
+          </Key>
+          <Property Name="SpellbookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpellbookName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK__Spellbook__UserI__69FBBC1F" FromRole="Spellbooks" ToRole="ApplicationUsers" />
+          <NavigationProperty Name="SpellbookEntries" Relationship="Self.FK__Spellbook__Spell__6CD828CA" FromRole="Spellbooks" ToRole="SpellbookEntries" />
+        </EntityType>
         <EntityType Name="Spell">
           <Key>
             <PropertyRef Name="SpellId" />
@@ -330,26 +375,16 @@
           <Property Name="SorSpell" Type="Boolean" Nullable="false" />
           <Property Name="WarSpell" Type="Boolean" Nullable="false" />
           <Property Name="WizSpell" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserSpells" Relationship="Self.FK__UserSpell__Spell__58D1301D" FromRole="Spells" ToRole="UserSpells" />
+          <NavigationProperty Name="SpellbookEntries" Relationship="Self.FK__Spellbook__Spell__6DCC4D03" FromRole="Spells" ToRole="SpellbookEntries" />
         </EntityType>
-        <EntityType Name="UserSpell">
-          <Key>
-            <PropertyRef Name="UserSpellId" />
-          </Key>
-          <Property Name="UserSpellId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SpellId" Type="Int32" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ApplicationUser" Relationship="Self.FK__UserSpell__UserI__59C55456" FromRole="UserSpells" ToRole="ApplicationUsers" />
-          <NavigationProperty Name="Spell" Relationship="Self.FK__UserSpell__Spell__58D1301D" FromRole="UserSpells" ToRole="Spells" />
-        </EntityType>
-        <Association Name="FK__UserSpell__UserI__59C55456">
+        <Association Name="FK__Spellbook__UserI__69FBBC1F">
           <End Role="ApplicationUsers" Type="Self.ApplicationUser" Multiplicity="0..1" />
-          <End Role="UserSpells" Type="Self.UserSpell" Multiplicity="*" />
+          <End Role="Spellbooks" Type="Self.Spellbook" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ApplicationUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserSpells">
+            <Dependent Role="Spellbooks">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -402,14 +437,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserSpell__Spell__58D1301D">
+        <Association Name="FK__Spellbook__Spell__6CD828CA">
+          <End Role="Spellbooks" Type="Self.Spellbook" Multiplicity="0..1" />
+          <End Role="SpellbookEntries" Type="Self.SpellbookEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Spellbooks">
+              <PropertyRef Name="SpellbookId" />
+            </Principal>
+            <Dependent Role="SpellbookEntries">
+              <PropertyRef Name="SpellbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Spellbook__Spell__6DCC4D03">
           <End Role="Spells" Type="Self.Spell" Multiplicity="0..1" />
-          <End Role="UserSpells" Type="Self.UserSpell" Multiplicity="*" />
+          <End Role="SpellbookEntries" Type="Self.SpellbookEntry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Spells">
               <PropertyRef Name="SpellId" />
             </Principal>
-            <Dependent Role="UserSpells">
+            <Dependent Role="SpellbookEntries">
               <PropertyRef Name="SpellId" />
             </Dependent>
           </ReferentialConstraint>
@@ -421,11 +468,12 @@
           <EntitySet Name="IdentityUserClaims" EntityType="Self.IdentityUserClaim" />
           <EntitySet Name="IdentityUserLogins" EntityType="Self.IdentityUserLogin" />
           <EntitySet Name="IdentityUserRoles" EntityType="Self.IdentityUserRole" />
+          <EntitySet Name="SpellbookEntries" EntityType="Self.SpellbookEntry" />
+          <EntitySet Name="Spellbooks" EntityType="Self.Spellbook" />
           <EntitySet Name="Spells" EntityType="Self.Spell" />
-          <EntitySet Name="UserSpells" EntityType="Self.UserSpell" />
-          <AssociationSet Name="FK__UserSpell__UserI__59C55456" Association="Self.FK__UserSpell__UserI__59C55456">
+          <AssociationSet Name="FK__Spellbook__UserI__69FBBC1F" Association="Self.FK__Spellbook__UserI__69FBBC1F">
             <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
-            <End Role="UserSpells" EntitySet="UserSpells" />
+            <End Role="Spellbooks" EntitySet="Spellbooks" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" Association="Self.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id">
             <End Role="ApplicationUsers" EntitySet="ApplicationUsers" />
@@ -443,9 +491,13 @@
             <End Role="IdentityRoles" EntitySet="IdentityRoles" />
             <End Role="IdentityUserRoles" EntitySet="IdentityUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserSpell__Spell__58D1301D" Association="Self.FK__UserSpell__Spell__58D1301D">
+          <AssociationSet Name="FK__Spellbook__Spell__6CD828CA" Association="Self.FK__Spellbook__Spell__6CD828CA">
+            <End Role="Spellbooks" EntitySet="Spellbooks" />
+            <End Role="SpellbookEntries" EntitySet="SpellbookEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Spellbook__Spell__6DCC4D03" Association="Self.FK__Spellbook__Spell__6DCC4D03">
             <End Role="Spells" EntitySet="Spells" />
-            <End Role="UserSpells" EntitySet="UserSpells" />
+            <End Role="SpellbookEntries" EntitySet="SpellbookEntries" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -521,6 +573,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SpellbookEntries">
+            <EntityTypeMapping TypeName="SpellCheckerModel.SpellbookEntry">
+              <MappingFragment StoreEntitySet="SpellbookEntries">
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="SpellbookId" ColumnName="SpellbookId" />
+                <ScalarProperty Name="SpellId" ColumnName="SpellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spellbooks">
+            <EntityTypeMapping TypeName="SpellCheckerModel.Spellbook">
+              <MappingFragment StoreEntitySet="Spellbooks">
+                <ScalarProperty Name="SpellbookId" ColumnName="SpellbookId" />
+                <ScalarProperty Name="SpellbookName" ColumnName="SpellbookName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Spells">
             <EntityTypeMapping TypeName="SpellCheckerModel.Spell">
               <MappingFragment StoreEntitySet="Spells">
@@ -556,15 +626,6 @@
                 <ScalarProperty Name="SorSpell" ColumnName="SorSpell" />
                 <ScalarProperty Name="WarSpell" ColumnName="WarSpell" />
                 <ScalarProperty Name="WizSpell" ColumnName="WizSpell" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserSpells">
-            <EntityTypeMapping TypeName="SpellCheckerModel.UserSpell">
-              <MappingFragment StoreEntitySet="UserSpells">
-                <ScalarProperty Name="UserSpellId" ColumnName="UserSpellId" />
-                <ScalarProperty Name="SpellId" ColumnName="SpellId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
