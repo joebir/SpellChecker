@@ -1,4 +1,6 @@
-﻿using SpellChecker.Models;
+﻿using Spellchecker.ViewModels;
+using SpellChecker.Data;
+using SpellChecker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,11 @@ namespace SpellChecker.Contracts
 {
     public interface ISpellbook
     {
-        IEnumerable<Spell> GetSpells();
-        bool AddEntry(Spell spell);
-        bool DeleteEntry(int entryId);
+        IEnumerable<SpellListItem> GetSpells(int spellbookId);
+        bool AddEntry(int spellbookId, int spellId);
+        bool DeleteEntry(int spellbookId, int entryId);
+        Spellbook GetSpellbookById(int spellbookId);
+        int GetSpellCount(int spellbookId);
+        bool DeleteSpellbook(int spellbookId);
     }
 }

@@ -1,4 +1,6 @@
-﻿using SpellChecker.Models;
+﻿using Spellchecker.ViewModels;
+using SpellChecker.Data;
+using SpellChecker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace SpellChecker.Contracts
 {
     public interface ISpell
     {
-        Spell GetSpellById(int spellId);
+        IEnumerable<SpellListItem> GetAllSpells();
+        Data.Spell GetSpellById(int spellId);
     }
 }

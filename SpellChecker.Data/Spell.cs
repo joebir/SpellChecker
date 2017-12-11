@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpellChecker.Data
 {
-    public class SpellEntity
+    public class Spell
     {
         [Key]
         public int SpellId { get; set; }

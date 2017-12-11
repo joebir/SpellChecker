@@ -53,10 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entry.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpellbookEntity.cs" />
-    <Compile Include="SpellEntity.cs" />
+    <Compile Include="Spellbook.cs" />
+    <Compile Include="Spell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

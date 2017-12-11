@@ -196,6 +196,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SpellbookController.cs" />
+    <Compile Include="Controllers\SpellController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -275,9 +277,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Spell\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Spellbook\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -296,6 +300,10 @@
     <ProjectReference Include="..\SpellChecker.Services\SpellChecker.Services.csproj">
       <Project>{3f61a191-8d9b-4c43-a83a-6f99626612ad}</Project>
       <Name>SpellChecker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spellchecker.ViewModels\Spellchecker.ViewModels.csproj">
+      <Project>{c0bc484d-8886-46f0-bd39-9776f28e5d8c}</Project>
+      <Name>Spellchecker.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

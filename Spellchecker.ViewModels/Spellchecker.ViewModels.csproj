@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3F61A191-8D9B-4C43-A83A-6F99626612AD}</ProjectGuid>
+    <ProjectGuid>{C0BC484D-8886-46F0-BD39-9776F28E5D8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpellChecker.Services</RootNamespace>
-    <AssemblyName>SpellChecker.Services</AssemblyName>
+    <RootNamespace>Spellchecker.ViewModels</RootNamespace>
+    <AssemblyName>Spellchecker.ViewModels</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,12 +36,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -53,31 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateSpellbookModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpellbookService.cs" />
-    <Compile Include="SpellService.cs" />
+    <Compile Include="SpellDetailModel.cs" />
+    <Compile Include="SpellListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SpellChecker.Contracts\SpellChecker.Contracts.csproj">
-      <Project>{843FC8B0-06FB-4DEB-A4EF-1A2290E4E6F4}</Project>
-      <Name>SpellChecker.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpellChecker.Data\SpellChecker.Data.csproj">
-      <Project>{CB142324-D58B-4BA9-AC4A-472D2A06DB55}</Project>
-      <Name>SpellChecker.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpellChecker.Models\SpellChecker.Models.csproj">
-      <Project>{12700AF8-2FCC-41B4-87FF-D84FBC503FE7}</Project>
-      <Name>SpellChecker.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Spellchecker.ViewModels\Spellchecker.ViewModels.csproj">
-      <Project>{C0BC484D-8886-46F0-BD39-9776F28E5D8C}</Project>
-      <Name>Spellchecker.ViewModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

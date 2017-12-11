@@ -6,12 +6,38 @@ using System.Text;
 using System.Threading.Tasks;
 using SpellChecker.Models;
 using SpellChecker.Data;
+using Spellchecker.ViewModels;
 
 namespace SpellChecker.Services
 {
     public class SpellService : ISpell
     {
-        public Spell GetSpellById(int spellId)
+        public IEnumerable<SpellListItem> GetAllSpells()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return
+                    ctx
+                        .Spells
+                        .Select(
+                            e =>
+                                new SpellListItem
+                                {
+                                    SpellName = e.SpellName,
+                                    SpellLevel = e.SpellLevel,
+                                    SpellSchool = e.SpellSchool,
+                                    CastingTime = e.CastingTime,
+                                    SpellRange = e.SpellRange,
+                                    VComponents = e.VComponents,
+                                    SComponents = e.SComponents,
+                                    HasMComponents = e.HasMComponents,
+                                    Duration = e.Duration
+                                })
+                            .ToArray();
+            }
+        }
+
+        public Data.Spell GetSpellById(int spellId)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -21,9 +47,8 @@ namespace SpellChecker.Services
                         .Single(e => e.SpellId == spellId);
 
                 return
-                    new Spell
+                    new Data.Spell
                     {
-                        SpellId = entity.SpellId,
                         SpellName = entity.SpellName,
                         SpellLevel = entity.SpellLevel,
                         SpellSchool = entity.SpellSchool,

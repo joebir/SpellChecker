@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="90dbc9f456ae4047b5fd6c1f177ebf23" Name="Diagram1">
+      <Diagram DiagramId="7c9e8c1a6c7f4fe6bd15f0a54c0f81a7" Name="Diagram1">
         <EntityTypeShape EntityType="SpellCheckerModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.ApplicationUser" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.IdentityRole" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
@@ -14,13 +14,13 @@
         <EntityTypeShape EntityType="SpellCheckerModel.SpellbookEntry" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.Spellbook" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SpellCheckerModel.Spell" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
-        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__UserI__69FBBC1F" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__UserI__7755B73D" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserClaims_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserLogins_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserRoles_dbo_ApplicationUsers_ApplicationUser_Id" ManuallyRouted="false" />
         <AssociationConnector Association="SpellCheckerModel.FK_dbo_IdentityUserRoles_dbo_IdentityRoles_IdentityRole_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__6CD828CA" ManuallyRouted="false" />
-        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__6DCC4D03" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__7A3223E8" ManuallyRouted="false" />
+        <AssociationConnector Association="SpellCheckerModel.FK__Spellbook__Spell__7B264821" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

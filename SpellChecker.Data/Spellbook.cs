@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SpellChecker.Data
 {
-    public class SpellbookEntity
+    public class Spellbook
     {
         [Key]
         public int SpellbookId { get; set; }
